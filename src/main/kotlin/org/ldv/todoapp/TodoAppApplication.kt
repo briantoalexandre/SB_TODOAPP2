@@ -9,3 +9,4 @@ class TodoAppApplication
 fun main(args: Array<String>) {
 	runApplication<TodoAppApplication>(*args)
 }
+	
