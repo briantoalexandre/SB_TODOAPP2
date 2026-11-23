@@ -14,22 +14,24 @@ import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.servlet.mvc.support.RedirectAttributes
+import org.springframework.web.bind.annotation.RequestAttribute
 
 @Controller
 class MesTachesController(
     private val tacheRepository: TacheRepository,
-    private val utilisateurRepository: UtilisateurRepository
+    @RequestAttribute("utilisateurActif", required = false) utilisateurActif: Utilisateur?
+    //private val utilisateurRepository: UtilisateurRepository
 ) {
 
     @GetMapping("/mes-taches")
     fun mesTaches(
         model: Model,
-        session: HttpSession
+        //session: HttpSession
     ): String {
 
         // Récupération de l'identifiant de l'utilisateur actif
-        val utilisateurId =
-            session.getAttribute("utilisateurId") as? Long
+        val utilisateurId = utilisateurActif?.idUtilisateur
+        //val utilisateurId = session.getAttribute("utilisateurId") as? Long
 
         // Récupération des tâches de l'utilisateur actif
         val taches = if (utilisateurId != null) {
